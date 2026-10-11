@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BANGBOO | 3D SHOWCASE // CURATED 3D DESIGN PORTFOLIO</title>
+  <meta name="description" content="絕區零 Bangboo 3D 展廳與 3D 列印模型展示系統，支援 Unreal/Blender PBR、切片紋理、拓撲網格與 6 大模型即時切換。">
+  <!-- Google Fonts: Modern Clean Sans-Serif Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <!-- Three.js + Loaders -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+  <!-- JSZip & 3MFLoader for Bambu Lab .3mf project files -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/3MFLoader.js"></script>
+  <!-- Model 1 (mw_551834) Real STL Data: 依埃思 - 全身 - 可換臉.stl -->
+  <script src="./models/mw_551834_stl_data.js"></script>
+  <!-- Model 2 (mw_2848847) Real STL Data: obj_1_邦布乐园雕像2.stl -->
+  <script src="./models/mw_2848847_stl_data.js"></script>
+</head>
+<body class="theme-clean-studio">
+
+  <!-- ======================================================================
+       1. Top Minimalist Header
+       ====================================================================== -->
+  <header class="studio-header">
+    <div class="header-brand-wrap">
+      <span class="brand-logo-symbol">⬢</span>
+      <span class="brand-main">BANGBOO</span>
+      <span class="brand-divider">|</span>
+      <span class="brand-sub">DIGITAL CRAFT</span>
+    </div>
+
+    <!-- Right Header Area: Collapsed via '≡' Hamburger as Requested -->
+    <div class="header-right-actions">
+      <button id="btnSwitchViewEngine" class="btn-pill-action" title="切換 3D 渲染視圖">
+        <span class="action-dot"></span>
+        <span id="viewEngineText">[LAUNCH VIEWER]</span>
+      </button>
+
+      <!-- User Requested "≡" Storage/Collapse Button -->
+      <button id="btnOpenDrawer" class="btn-hamburger" aria-label="開啟選單與工具欄" title="展開選單與工具欄 (≡)">
+        <span class="hamburger-symbol">≡</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       2. Main Hero Showcase Area (1:1 Layout Matched to Image)
+       ====================================================================== -->
+  <main class="showcase-main-container">
+    <div class="showcase-hero-grid">
+      
+      <!-- Left Column: Typography, Metadata & Interactive Switches -->
+      <section class="hero-meta-column">
+        <div class="typography-badge">Elegant typography: Modern Sans-Serif</div>
+        
+        <h1 class="hero-showcase-title">
+          <span>BANGBOO</span>
+          <span class="title-divider">|</span>
+          <span class="title-accent">SHOWCASE</span>
+        </h1>
+        <p class="hero-portfolio-sub">CURATED 3D DESIGN PORTFOLIO</p>
+
+        <!-- Dynamic Project Name & Subtitle -->
+        <div class="project-identity-block">
+          <h2 id="projectCodeName" class="project-code-name">PROJECT: EOUS-MODULAR</h2>
+          <p id="projectCategory" class="project-category-sub">Modular Face-Plates System, Bambu Multi-Part</p>
+        </div>
+
+        <!-- Project Metadata Table -->
+        <div class="metadata-table-card">
+          <h3 class="metadata-heading">Project Metadata</h3>
+          <div class="metadata-rows">
+            <div class="meta-row">
+              <span class="meta-key">Brands</span>
+              <span class="meta-val">Zenless Zone Zero (絕區零)</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Author</span>
+              <span id="metaAuthor" class="meta-val">AleHG</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Platform</span>
+              <span id="metaPlatform" class="meta-val">MakerWorld #551834</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-key">Print Specs</span>
+              <span id="metaPrintSpec" class="meta-val">0.20mm Layer · 磁吸/卡榫可換面罩 · PLA</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Control Switches (Matched to [WIREFRAME] [ON OFF] [SHADED] [ON OFF]) -->
+        <div class="showcase-toggles-cluster">
+          <!-- Wireframe Toggle -->
+          <div class="toggle-group-item">
+            <span class="toggle-label">[WIREFRAME]</span>
+            <div class="switch-capsule" id="swWireframe">
+              <button class="switch-opt" data-opt="on">ON</button>
+              <button class="switch-opt active" data-opt="off">OFF</button>
+            </div>
+          </div>
+
+          <!-- Shaded / Clay Toggle -->
+          <div class="toggle-group-item">
+            <span class="toggle-label">[SHADED]</span>
+            <div class="switch-capsule" id="swShaded">
+              <button class="switch-opt active" data-opt="on">ON</button>
+              <button class="switch-opt" data-opt="off">OFF</button>
+            </div>
+          </div>
+
+          <!-- Auto-Rotate Toggle -->
+          <div class="toggle-group-item">
+            <span class="toggle-label">[AUTO-ROTATE]</span>
+            <div class="switch-capsule" id="swRotate">
+              <button class="switch-opt active" data-opt="on">ON</button>
+              <button class="switch-opt" data-opt="off">OFF</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Massive 3D Stage with Studio Backdrop -->
+      <section class="hero-stage-column">
+        <div class="stage-backdrop-ring" aria-hidden="true"></div>
+
+        <!-- 3D Canvas / Embed Wrappers -->
+        <div class="stage-viewport-box" id="stageViewportBox">
+          
+          <!-- 1. WebGL Three.js Container -->
+          <div id="threeContainer" class="three-container">
+            <canvas id="threeCanvas"></canvas>
+            <!-- Loading Indicator -->
+            <div id="loadingOverlay" class="loading-overlay">
+              <div class="spinner-ring"></div>
+              <span class="loading-text">LOADING 3D MESH...</span>
+            </div>
+          </div>
+
+          <!-- 2. Sketchfab Live 3D Interactive Container -->
+          <div id="sketchfabContainer" class="sketchfab-container" style="display: none;">
+            <iframe 
+              id="sketchfabIframe"
+              title="3D Model Viewer" 
+              src="https://sketchfab.com/models/785ec64fce6f4ae98038f3ff482c93f8/embed?autostart=1&internal=1&tracking=0&ui_ar=0&ui_infos=0&ui_snapshots=1&ui_stop=0&ui_theatre=1&ui_watermark=0" 
+              allow="autoplay; fullscreen; xr-spatial-tracking" 
+              allowfullscreen>
+            </iframe>
+          </div>
+
+          <!-- 3. MakerWorld Official Design Showcase & Direct Downloader Container -->
+          <div id="makerworldContainer" class="makerworld-container" style="display: none;">
+            <div class="mw-showcase-backdrop">
+              <div class="mw-showcase-header">
+                <span class="mw-badge">BAMBU LAB · MAKERWORLD 官方認證模型</span>
+                <span class="mw-model-id" id="mwModelIdBadge">#551834</span>
+              </div>
+              
+              <!-- Official Creator Photos Carousel / Display -->
+              <div class="mw-photo-stage">
+                <img id="mwMainPhoto" class="mw-main-photo" src="./images/mw_551834_eous_faces.png" alt="官方實物打印展示" />
+                <div class="mw-photo-meta">
+                  <span id="mwPhotoDesc">MakerWorld 原創實物打印 · 官方分色與可換件設計</span>
+                </div>
+              </div>
+
+              <!-- Official Download & Dropzone CTA Area -->
+              <div class="mw-action-card">
+                <div class="mw-cta-text">
+                  <h4 id="mwCtaTitle">官方正版 3D 打印模型檔案</h4>
+                  <p id="mwCtaSub">原作者正版授權 · 支援 Bambu AMS 多色打印 · 實體閉合無孔洞 (3MF / STL)</p>
+                </div>
+                
+                <div class="mw-btn-group">
+                  <a id="btnMwDirectDownload" href="https://makerworld.com/zh/models/551834" target="_blank" rel="noopener" class="btn-mw-download">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>⚡ 前往 MakerWorld 官方網頁直下原檔 (.3mf / .stl)</span>
+                  </a>
+
+                  <label class="btn-mw-upload" title="上傳已下載的模型至舞台預覽">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    <span>拖入或選取已下載的原檔即刻 3D 渲染</span>
+                    <input type="file" id="mwLocalFileInput" accept=".stl,.3mf,.obj,.glb,.gltf" style="display: none;" />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ====================================================================
+         3. Bottom Showcase Card Shelf (Exact Match to Image Bottom Row)
+         ==================================================================== -->
+    <section class="bottom-showcase-shelf" aria-label="模型宇宙展示卡片列">
+      <div class="shelf-header-row">
+        <span class="shelf-title-code">CURATED 3D EDITIONS (4 MAKERWORLD MODELS)</span>
+        <span class="shelf-counter-hint">點選卡片即時載入 3D 舞台 (可 360° 旋轉視角) ↗</span>
+      </div>
+
+      <div class="shelf-cards-track">
+
+        <!-- Card 1: mw_551834 Faces -->
+        <article class="shelf-card active" data-model="mw_551834">
+          <div class="shelf-card-thumb-wrap">
+            <img src="./images/mw_551834_eous_faces.png" alt="Eous Face-Plates" loading="lazy">
+          </div>
+          <div class="shelf-card-info">
+            <h4 class="card-title">EOUS FACE-PLATES</h4>
+            <div class="card-tags">
+              <span class="tag-chip">6-Faces</span>
+              <span class="tag-chip">MakerWorld</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4: mw_2848847 Statue -->
+        <article class="shelf-card" data-model="mw_2848847">
+          <div class="shelf-card-thumb-wrap">
+            <img src="./images/mw_2848847_park_statue.jpg" alt="Bonbon Park Statue" loading="lazy">
+          </div>
+          <div class="shelf-card-info">
+            <h4 class="card-title">PARK STATUE #2</h4>
+            <div class="card-tags">
+              <span class="tag-chip">Stone Statue</span>
+              <span class="tag-chip">MakerWorld</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 5: mw_1027664 Clicker -->
+        <article class="shelf-card" data-model="mw_1027664">
+          <div class="shelf-card-thumb-wrap">
+            <img src="./images/mw_1027664_fidget_clicker.webp" alt="Bang Bu Clicker" loading="lazy">
+          </div>
+          <div class="shelf-card-info">
+            <h4 class="card-title">BANGBOO CLICKER</h4>
+            <div class="card-tags">
+              <span class="tag-chip">Fidget EDC</span>
+              <span class="tag-chip">YEZAO</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 6: mw_1141374 Prosperity -->
+        <article class="shelf-card" data-model="mw_1141374">
+          <div class="shelf-card-thumb-wrap">
+            <img src="./images/mw_1141374_prosperity_riches.webp" alt="Prosperity Riches" loading="lazy">
+          </div>
+          <div class="shelf-card-info">
+            <h4 class="card-title">PROSPERITY RICHES</h4>
+            <div class="card-tags">
+              <span class="tag-chip">2025 Riches</span>
+              <span class="tag-chip">YEZAO</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================================
+       4. Side Offcanvas Drawer (收納所有頂部與右側工具欄內容)
+       ====================================================================== -->
+  <aside id="sideDrawer" class="side-drawer-overlay">
+    <div class="drawer-panel">
+      <!-- Drawer Header -->
+      <div class="drawer-header">
+        <div class="drawer-title-group">
+          <span class="drawer-badge">PORTFOLIO TOOLS</span>
+          <h3 class="drawer-main-title">3D 列印工坊與配置</h3>
+        </div>
+        <button id="btnCloseDrawer" class="btn-close-drawer" aria-label="關閉選單">✕</button>
+      </div>
+
+      <!-- Drawer Content Navigation -->
+      <div class="drawer-body">
+        
+        <!-- Section A: Source & Link -->
+        <div class="drawer-section">
+          <h4 class="section-title">01 // 模型來源與原作者</h4>
+          <div class="drawer-source-box">
+            <a id="drawerSourceLink" href="https://sketchfab.com/3d-models/bangboo-eous-785ec64fce6f4ae98038f3ff482c93f8" target="_blank" rel="noopener noreferrer" class="drawer-link-chip">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1.086 19.911L5.525 16.8v-6.276l5.389 2.911v6.476zm.96-7.953L5.5 8.578l6.376-3.682 6.377 3.682-6.379 3.38zm6.38 4.854l-5.369 3.1v-6.452l5.369-2.901v6.253z"/></svg>
+              <span id="drawerAuthor">Sketchfab 原作者: nonameshrimp ↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Section B: Parts Colorways Swatches -->
+        <div class="drawer-section">
+          <h4 class="section-title">02 // 官方部件分色塗裝對照表</h4>
+          <p id="drawerColorDesc" class="drawer-sub-text">依據作品細節配製專屬塗裝分色指南：</p>
+          <div class="drawer-swatches-row" id="drawerSwatches"></div>
+          <div class="parts-color-table" id="partsColorTable"></div>
+        </div>
+
+        <!-- Section C: 3D Printing & Slicing Calculator -->
+        <div class="drawer-section">
+          <h4 class="section-title">03 // 3D 列印規格與耗材計算器</h4>
+          <div class="slider-control-group">
+            <div class="slider-header">
+              <span>目標列印高度：</span>
+              <span id="sliderValue" class="slider-val-badge">90 mm (掌心公仔)</span>
+            </div>
+            <input type="range" id="sizeSlider" min="50" max="180" step="5" value="90" class="cyber-slider">
+            <div class="slider-presets">
+              <button class="preset-chip" data-size="60">60mm 吊飾</button>
+              <button class="preset-chip active" data-size="90">90mm 桌面款</button>
+              <button class="preset-chip" data-size="120">120mm 擺件</button>
+              <button class="preset-chip" data-size="150">150mm 原尺寸</button>
+            </div>
+          </div>
+
+          <div class="estimate-summary-box">
+            <div class="est-row"><span class="est-label">📏 尺寸：</span><span id="estDimensions" class="est-val">76 × 64 × 90 mm</span></div>
+            <div class="est-row"><span class="est-label">⚖️ 耗材：</span><span id="estWeight" class="est-val">約 46 克 (PLA)</span></div>
+            <div class="est-row"><span class="est-label">⏱️ 時間：</span><span id="estTime" class="est-val">約 3 小時 40 分</span></div>
+            <div class="est-row"><span class="est-label">💰 成本：</span><span id="estCost" class="est-val">約 18 ~ 25 元 (課堂免費)</span></div>
+          </div>
+        </div>
+
+        <!-- Section D: File Downloads -->
+        <div class="drawer-section">
+          <h4 class="section-title">04 // 檔案下載專區 (STL / GLB / 3MF)</h4>
+          <div class="download-card-list" id="downloadCardList"></div>
+        </div>
+
+        <!-- Section E: Upload Local File -->
+        <div class="drawer-section">
+          <h4 class="section-title">05 // 匯入本地 3D 模型檔案</h4>
+          <div class="model-dropzone" id="modelDropzone">
+            <input type="file" id="modelFileInput" accept=".stl,.glb,.gltf,.obj" style="display: none;">
+            <div class="dropzone-icon">📥</div>
+            <strong class="dropzone-text">拖曳 .STL / .GLB / .OBJ 檔案至此</strong>
+            <button type="button" class="btn-dropzone-pick" onclick="document.getElementById('modelFileInput').click()">選取檔案</button>
+          </div>
+        </div>
+
+        <!-- Section F: Fullscreen & About -->
+        <div class="drawer-section">
+          <h4 class="section-title">06 // 檢視偏好</h4>
+          <button id="btnToggleFullscreen" class="btn-drawer-action">⛶ 切換全螢幕檢視</button>
+        </div>
+
+      </div>
+    </div>
+  </aside>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast-box"></div>
+
+  <!-- Main JavaScript Logic -->
+  <script src="./app.js"></script>
+</body>
+</html>
