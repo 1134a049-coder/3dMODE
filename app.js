@@ -41,10 +41,12 @@ const MODELS_CONFIG = {
       { bg: '#cbd5e1', name: '風化立體刻線與高光面', code: 'HEX: #CBD5E1 · 淺石灰' },
       { bg: '#334155', name: '底盤防滑配重槽', code: 'HEX: #334155 · 工業深灰' }
     ],
-    stlUrl: './models/obj_1_邦布乐园雕像2.stl',
-    glbUrl: './models/obj_1_邦布乐园雕像2.glb',
+    stlUrl: './obj_1_邦布乐园雕像2.stl',
+    glbUrl: './obj_1_邦布乐园雕像2.glb',
     candidates: [
+      './obj_1_邦布乐园雕像2.glb',
       './models/obj_1_邦布乐园雕像2.glb',
+      './obj_1_邦布乐园雕像2.stl',
       './models/obj_1_邦布乐园雕像2.stl',
       './models/obj_1_%E9%82%A6%E5%B8%83%E4%B9%90%E5%9B%AD%E9%9B%95%E5%83%8F2.stl',
       './models/mw_2848847.stl',
@@ -52,8 +54,8 @@ const MODELS_CONFIG = {
       './models/obj_1.stl'
     ],
     downloads: [
-      { type: 'STL', file: './models/obj_1_邦布乐园雕像2.stl', name: 'obj_1_邦布乐园雕像2.stl', class: 'dl-stl', desc: '37.0 MB · 原作者 100% 正版雕像 STL (740,852 面高精細網格)' },
-      { type: 'GLB', file: './models/obj_1_邦布乐园雕像2.glb', name: 'obj_1_邦布乐园雕像2.glb', class: 'dl-glb', desc: '16.9 MB · 100% 正版完整網格快速渲染模型 (安全小於25MB)' }
+      { type: 'STL', file: './obj_1_邦布乐园雕像2.stl', name: 'obj_1_邦布乐园雕像2.stl', class: 'dl-stl', desc: '37.0 MB · 原作者 100% 正版雕像 STL (740,852 面高精細網格)' },
+      { type: 'GLB', file: './obj_1_邦布乐园雕像2.glb', name: 'obj_1_邦布乐园雕像2.glb', class: 'dl-glb', desc: '16.9 MB · 100% 正版完整網格快速渲染模型 (安全小於25MB)' }
     ]
   },
 
@@ -89,10 +91,12 @@ const MODELS_CONFIG = {
       { bg: '#ea580c', name: '經典立體領巾 / 裝飾耳襯', code: 'HEX: #EA580C · 伊埃斯亮橙' },
       { bg: '#64748b', name: '展示卡榫底板 / 面罩吸鐵卡槽', code: 'HEX: #64748B · 工業深灰金屬' }
     ],
-    stlUrl: './models/依埃思 - 全身 - 可換臉.stl',
-    glbUrl: './models/依埃思 - 全身 - 可換臉.glb',
+    stlUrl: './依埃思 - 全身 - 可換臉.stl',
+    glbUrl: './依埃思 - 全身 - 可換臉.glb',
     candidates: [
+      './依埃思 - 全身 - 可換臉.glb',
       './models/依埃思 - 全身 - 可換臉.glb',
+      './依埃思 - 全身 - 可換臉.stl',
       './models/依埃思 - 全身 - 可換臉.stl',
       './models/%E4%BE%9D%E5%9F%83%E6%80%9D%20-%20%E5%85%A8%E8%BA%AB%20-%20%E5%8F%AF%E6%8F%9B%E8%87%89.stl',
       './models/mw_551834.stl',
@@ -100,8 +104,8 @@ const MODELS_CONFIG = {
       './models/eous_faces.stl'
     ],
     downloads: [
-      { type: 'STL', file: './models/依埃思 - 全身 - 可換臉.stl', name: '依埃思 - 全身 - 可換臉.stl', class: 'dl-stl', desc: '5.35 MB · 原作者 100% 正版全身可換臉 STL · 106,995 面精緻閉合網格' },
-      { type: 'GLB', file: './models/依埃思 - 全身 - 可換臉.glb', name: '依埃思 - 全身 - 可換臉.glb', class: 'dl-glb', desc: '2.45 MB · 100% 正版完整網格快速渲染模型' }
+      { type: 'STL', file: './依埃思 - 全身 - 可換臉.stl', name: '依埃思 - 全身 - 可換臉.stl', class: 'dl-stl', desc: '5.35 MB · 原作者 100% 正版全身可換臉 STL · 106,995 面精緻閉合網格' },
+      { type: 'GLB', file: './依埃思 - 全身 - 可換臉.glb', name: '依埃思 - 全身 - 可換臉.glb', class: 'dl-glb', desc: '2.45 MB · 100% 正版完整網格快速渲染模型' }
     ]
   }
 };
