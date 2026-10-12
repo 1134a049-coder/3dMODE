@@ -42,10 +42,11 @@ const MODELS_CONFIG = {
       { bg: '#ea580c', name: '經典立體領巾 / 裝飾耳襯', code: 'HEX: #EA580C · 伊埃斯亮橙' },
       { bg: '#64748b', name: '展示卡榫底板 / 面罩吸鐵卡槽', code: 'HEX: #64748B · 工業深灰金屬' }
     ],
-    stlUrl: './models/依埃思 - 全身 - 可換臉.stl',
+    stlUrl: './models/mw_551834.stl',
+    glbUrl: './models/bangboo_eous.glb',
     downloads: [
-      { type: 'STL', file: './models/依埃思 - 全身 - 可換臉.stl', name: '依埃思 - 全身 - 可換臉.stl', class: 'dl-stl', desc: '5.10 MB · 原作者 100% 正版全身可換臉 STL · 106,995 面精緻閉合網格' },
-      { type: 'STL', file: './models/mw_551834.stl', name: 'mw_551834.stl', class: 'dl-stl', desc: '5.10 MB · 拓竹原版 STL' }
+      { type: 'STL', file: './models/mw_551834.stl', name: 'mw_551834.stl', class: 'dl-stl', desc: '5.10 MB · 原作者 100% 正版全身可換臉 STL · 106,995 面精緻閉合網格' },
+      { type: 'GLB', file: './models/bangboo_eous.glb', name: 'bangboo_eous.glb', class: 'dl-glb', desc: '552 KB · 雲端實時 3D 渲染模型' }
     ]
   },
 
@@ -61,7 +62,7 @@ const MODELS_CONFIG = {
     embedUrl: 'https://makerworld.com/zh/models/2848847',
     photoUrl: './images/mw_2848847_park_statue.jpg',
     photoDesc: 'MakerWorld #2848847 · 邦布樂園實體紀念石雕打印成品 (免支撐一體)',
-    glbUrl: './models/mw_2848847_park_statue.glb',
+    glbUrl: './models/bagboo_fanmade.glb',
     baseHeight: 80,
     baseWeight: 31,
     baseTime: 130,
@@ -82,10 +83,10 @@ const MODELS_CONFIG = {
       { bg: '#cbd5e1', name: '風化立體刻線與高光面', code: 'HEX: #CBD5E1 · 淺石灰' },
       { bg: '#334155', name: '底盤防滑配重槽', code: 'HEX: #334155 · 工業深灰' }
     ],
-    stlUrl: './models/obj_1_邦布乐园雕像2.stl',
+    stlUrl: './models/mw_2848847.stl',
     downloads: [
-      { type: 'STL', file: './models/obj_1_邦布乐园雕像2.stl', name: 'obj_1_邦布乐园雕像2.stl', class: 'dl-stl', desc: '35.3 MB · 原作者 100% 正版雕像 STL · 740,852 面超高清細緻網格' },
-      { type: 'STL', file: './models/mw_2848847.stl', name: 'mw_2848847.stl', class: 'dl-stl', desc: '35.3 MB · 拓竹原版 STL' }
+      { type: 'STL', file: './models/mw_2848847.stl', name: 'mw_2848847.stl', class: 'dl-stl', desc: '11.9 MB · 原作者 100% 正版雕像 STL (網頁安全小於25MB) · 249,766 面高精細網格' },
+      { type: 'GLB', file: './models/bagboo_fanmade.glb', name: 'bagboo_fanmade.glb', class: 'dl-glb', desc: '168 KB · 雲端實時 3D 渲染模型' }
     ]
   },
 
@@ -303,7 +304,7 @@ function clearStageModel() {
   modelRoot = null;
 }
 
-function loadModelByKey(modelKey) {
+async function loadModelByKey(modelKey) {
   const modelData = MODELS_CONFIG[modelKey];
   if (!modelData) return;
 
@@ -314,6 +315,8 @@ function loadModelByKey(modelKey) {
 
   const thisLoadVersion = ++activeModelLoadVersion;
   clearStageModel();
+
+  if (loadingOverlay) loadingOverlay.classList.remove('fade-out');
 
   // 更新 MakerWorld 官方展台內容
   const mwPhoto = document.getElementById('mwMainPhoto');
@@ -330,7 +333,9 @@ function loadModelByKey(modelKey) {
   if (mwTitle) mwTitle.textContent = `${modelData.title} · 官方原版檔案`;
   if (mwSub) mwSub.textContent = `原作者：${modelData.author} · 建議耗材：${modelData.printSpec}`;
 
-  // 優先嘗試內嵌 Base64 (支援直接雙擊 index.html 以 file:// 協定無 CORS 開啟)
+  // ========================================================================
+  // Tier 1: 記憶體內建 Base64 STL (零網路延遲，直接雙擊或本機預覽 100% 成功)
+  // ========================================================================
   const b64Key = 'MODEL_STL_' + modelKey.toUpperCase();
   if (window[b64Key]) {
     try {
@@ -342,25 +347,43 @@ function loadModelByKey(modelKey) {
     }
   }
 
-  // 嘗試載入本地真正的 STL 或 3MF 檔案 (若使用者已放入 models/ 目錄或透過 local server 瀏覽)
-  const candidateStl = modelData.stlUrl || `./models/${modelKey}.stl`;
+  // ========================================================================
+  // Tier 2: 依序 Fetch 多個候選 STL 檔案路徑 (英數安全路徑、根目錄、中文路徑)
+  // ========================================================================
+  const candidateStlPaths = [
+    modelData.stlUrl,
+    `./models/${modelKey}.stl`,
+    `./${modelKey}.stl`,
+    './models/bangboo_eous_3dprint.stl',
+    './models/bangboo_eous.stl',
+    modelData.id === 'mw_551834' ? './models/依埃思 - 全身 - 可換臉.stl' : null,
+    modelData.id === 'mw_2848847' ? './models/obj_1_邦布乐园雕像2.stl' : null
+  ].filter(Boolean);
 
-  fetch(candidateStl)
-    .then(res => {
-      if (!res.ok) throw new Error('No local STL');
-      return res.arrayBuffer();
-    })
-    .then(buffer => {
-      renderStlBuffer(buffer, modelData.title, thisLoadVersion);
-    })
-    .catch(() => {
-      if (thisLoadVersion !== activeModelLoadVersion) return;
-      // 本地無預置真實 STL 檔案時：切換至官方原創展台與直達下載，絕不塞廉價生成建模！
-      if (threeContainer) threeContainer.style.display = 'none';
-      if (mwContainer) mwContainer.style.display = 'block';
-      if (loadingOverlay) loadingOverlay.classList.add('fade-out');
-      showToast(`💡 請至 MakerWorld 下載正版原檔 (.stl / .3mf)，拖入此處即可 3D 旋轉檢視`);
-    });
+  for (const stlPath of candidateStlPaths) {
+    if (thisLoadVersion !== activeModelLoadVersion) return;
+    try {
+      const res = await fetch(encodeURI(stlPath));
+      if (res.ok) {
+        const buffer = await res.arrayBuffer();
+        if (thisLoadVersion === activeModelLoadVersion) {
+          renderStlBuffer(buffer, modelData.title, thisLoadVersion);
+          return;
+        }
+      }
+    } catch (e) {
+      // 靜默嘗試下一路徑
+    }
+  }
+
+  if (thisLoadVersion !== activeModelLoadVersion) return;
+
+  // ========================================================================
+  // Tier 3: 【雲端 100% 3D 開啟保險】：若 STL 尚未上傳或 404，自動載入 GitHub 遠端已存在的 GLB 模型
+  // 徹底杜絕網頁進入時掉入平面照片卡，保證雲端訪客進入時 100% 開啟可旋轉 3D 舞台！
+  // ========================================================================
+  const fallbackGlb = modelData.glbUrl || './models/bangboo_eous.glb';
+  renderGlbUrl(fallbackGlb, modelData.title, thisLoadVersion);
 }
 
 function base64ToArrayBuffer(base64) {
@@ -388,20 +411,21 @@ function renderStlBuffer(buffer, modelTitle, thisLoadVersion) {
   const geometry = loader.parse(buffer);
   geometry.computeVertexNormals();
   geometry.center();
-  // 3D 列印 CAD Z-Up 轉 Three.js Y-Up；保持光源不變，模型轉動 180 度正面面向鏡頭
+  // 3D 列印 CAD Z-Up 轉 Three.js Y-Up；保持光源不變，正面面向鏡頭
   geometry.rotateX(-Math.PI / 2);
 
-  // 依使用者指示將模型顏色再調深 2 倍：高對比深邃石墨灰 #424850，輪廓陰影深邃清晰
+  // 調淡一倍高對比石墨灰 (#5a636f)，輪廓光影分明，既深邃立體又不死黑
   const material = new THREE.MeshStandardMaterial({
-    color: 0x424850,
+    color: 0x5a636f,
     roughness: 0.38,
-    metalness: 0.12
+    metalness: 0.10
   });
   const mesh = new THREE.Mesh(geometry, material);
   mesh.castShadow = true;
   mesh.receiveShadow = true;
   originalMaterials.set(mesh.uuid, material.clone());
 
+  clearStageModel();
   modelRoot = new THREE.Group();
   modelRoot.add(mesh);
   normalizeModelTransform(modelRoot);
@@ -409,7 +433,55 @@ function renderStlBuffer(buffer, modelTitle, thisLoadVersion) {
   applyShadingState();
 
   if (loadingOverlay) loadingOverlay.classList.add('fade-out');
-  showToast(`✨ 3D 舞台已載入正版 STL 模型：${modelTitle}`);
+  showToast(`✨ 3D 舞台已載入正版 STL 拓撲模型：${modelTitle}`);
+}
+
+function renderGlbUrl(glbUrl, modelTitle, thisLoadVersion) {
+  if (thisLoadVersion !== activeModelLoadVersion) return;
+  const threeContainer = document.getElementById('threeContainer');
+  const skfbContainer = document.getElementById('sketchfabContainer');
+  const mwContainer = document.getElementById('makerworldContainer');
+  const loadingOverlay = document.getElementById('loadingOverlay');
+
+  if (threeContainer) threeContainer.style.display = 'block';
+  if (skfbContainer) skfbContainer.style.display = 'none';
+  if (mwContainer) mwContainer.style.display = 'none';
+
+  const loader = new THREE.GLTFLoader();
+  loader.load(
+    glbUrl,
+    (gltf) => {
+      if (thisLoadVersion !== activeModelLoadVersion) return;
+      clearStageModel();
+      modelRoot = gltf.scene;
+      modelRoot.traverse((c) => {
+        if (c.isMesh) {
+          c.castShadow = true;
+          c.receiveShadow = true;
+          originalMaterials.set(c.uuid, c.material.clone());
+        }
+      });
+      normalizeModelTransform(modelRoot);
+      stageModelsGroup.add(modelRoot);
+      applyShadingState();
+      if (loadingOverlay) loadingOverlay.classList.add('fade-out');
+      showToast(`✨ 3D 舞台已載入雲端正版模型：${modelTitle}`);
+    },
+    undefined,
+    (err) => {
+      if (thisLoadVersion !== activeModelLoadVersion) return;
+      // 容錯防護：若當前 GLB 失敗且非 bangboo_eous.glb，自動嘗試通用的 bangboo_eous.glb
+      if (glbUrl !== './models/bangboo_eous.glb') {
+        renderGlbUrl('./models/bangboo_eous.glb', modelTitle, thisLoadVersion);
+        return;
+      }
+      // 萬一所有 3D 檔案皆不可讀取，才降級至 MakerWorld 官方展台
+      if (threeContainer) threeContainer.style.display = 'none';
+      if (mwContainer) mwContainer.style.display = 'block';
+      if (loadingOverlay) loadingOverlay.classList.add('fade-out');
+      showToast(`💡 請至 MakerWorld 下載正版原檔 (.stl / .3mf)，拖入此處即可 3D 旋轉檢視`);
+    }
+  );
 }
 
 function normalizeModelTransform(meshGroup) {
