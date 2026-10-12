@@ -9,7 +9,55 @@
 // 1. 6 大模型資料庫配置 (MODELS_CONFIG)
 // ==========================================================================
 const MODELS_CONFIG = {
-  // 模型 1：伊埃斯 01 號 (6款換臉版) - MakerWorld #551834
+  // 模型 1：邦布樂園・邦布雕像 2 號 (附圖二原版實體) - MakerWorld #2848847
+  mw_2848847: {
+    id: 'mw_2848847',
+    codeName: 'PROJECT: PARK-MONUMENT',
+    category: 'Architectural Figurine Statue, Monolithic Solid',
+    title: '邦布樂園・邦布雕像 2 號',
+    author: 'MakerWorld 原創',
+    platform: 'MakerWorld #2848847',
+    sourceUrl: 'https://makerworld.com/zh/models/2848847',
+    embedUrl: 'https://makerworld.com/zh/models/2848847',
+    photoUrl: './images/mw_2848847_park_statue.jpg',
+    photoDesc: 'MakerWorld #2848847 · 邦布樂園實體紀念石雕打印成品 (附圖二原版實體 · 免支撐一體)',
+    baseHeight: 80,
+    baseWeight: 31,
+    baseTime: 130,
+    dimensions: '60 × 60 × 80 mm',
+    printSpec: '0.16mm Layer · 單色一體 (31g) / AMS多色 · 免支撐一體成型',
+    colorDesc: '新艾利都邦布主題樂園實體紀念石雕，底座平穩免支撐，極致好印。',
+    swatches: [
+      { bg: '#94a3b8', title: '水泥石雕灰 #94a3b8' },
+      { bg: '#475569', title: '大理石深階 #475569' },
+      { bg: '#b45309', title: '青銅紀念銘牌 #b45309' },
+      { bg: '#cbd5e1', title: '石雕高光 #cbd5e1' },
+      { bg: '#334155', title: '園區基座 #334155' }
+    ],
+    colorTable: [
+      { bg: '#94a3b8', name: '雕像主體 / 瞇瞇眼表情 / 01立體領巾', code: 'HEX: #94A3B8 · 水泥仿石灰 PLA' },
+      { bg: '#475569', name: '雙層大理石紀念方柱底座', code: 'HEX: #475569 · 深灰玄武岩' },
+      { bg: '#b45309', name: '樂園編號銘牌 (Bonbon Park #2)', code: 'HEX: #B45309 · 仿古青銅黃銅' },
+      { bg: '#cbd5e1', name: '風化立體刻線與高光面', code: 'HEX: #CBD5E1 · 淺石灰' },
+      { bg: '#334155', name: '底盤防滑配重槽', code: 'HEX: #334155 · 工業深灰' }
+    ],
+    stlUrl: './models/obj_1_邦布乐园雕像2.stl',
+    glbUrl: './models/obj_1_邦布乐园雕像2.glb',
+    candidates: [
+      './models/obj_1_邦布乐园雕像2.glb',
+      './models/obj_1_邦布乐园雕像2.stl',
+      './models/obj_1_%E9%82%A6%E5%B8%83%E4%B9%90%E5%9B%AD%E9%9B%95%E5%83%8F2.stl',
+      './models/mw_2848847.stl',
+      './models/mw_2848847.glb',
+      './models/obj_1.stl'
+    ],
+    downloads: [
+      { type: 'STL', file: './models/obj_1_邦布乐园雕像2.stl', name: 'obj_1_邦布乐园雕像2.stl', class: 'dl-stl', desc: '37.0 MB · 原作者 100% 正版雕像 STL (740,852 面高精細網格)' },
+      { type: 'GLB', file: './models/obj_1_邦布乐园雕像2.glb', name: 'obj_1_邦布乐园雕像2.glb', class: 'dl-glb', desc: '16.9 MB · 100% 正版完整網格快速渲染模型 (安全小於25MB)' }
+    ]
+  },
+
+  // 模型 2：伊埃斯 01 號 (6款換臉版) - MakerWorld #551834
   mw_551834: {
     id: 'mw_551834',
     codeName: 'PROJECT: EOUS-MODULAR',
@@ -21,7 +69,6 @@ const MODELS_CONFIG = {
     embedUrl: 'https://makerworld.com/zh/models/551834',
     photoUrl: './images/mw_551834_eous_faces.png',
     photoDesc: 'MakerWorld #551834 · 6 款替換面罩實體組裝與 AMS 分色打印實拍',
-    glbUrl: './models/mw_551834_eous_faces.glb',
     baseHeight: 110,
     baseWeight: 155,
     baseTime: 380,
@@ -42,134 +89,24 @@ const MODELS_CONFIG = {
       { bg: '#ea580c', name: '經典立體領巾 / 裝飾耳襯', code: 'HEX: #EA580C · 伊埃斯亮橙' },
       { bg: '#64748b', name: '展示卡榫底板 / 面罩吸鐵卡槽', code: 'HEX: #64748B · 工業深灰金屬' }
     ],
-    stlUrl: './models/mw_551834.stl',
-    glbUrl: './models/bangboo_eous.glb',
-    downloads: [
-      { type: 'STL', file: './models/mw_551834.stl', name: 'mw_551834.stl', class: 'dl-stl', desc: '5.10 MB · 原作者 100% 正版全身可換臉 STL · 106,995 面精緻閉合網格' },
-      { type: 'GLB', file: './models/bangboo_eous.glb', name: 'bangboo_eous.glb', class: 'dl-glb', desc: '552 KB · 雲端實時 3D 渲染模型' }
-    ]
-  },
-
-  // 模型 4：邦布樂園雕像 2 號 - MakerWorld #2848847
-  mw_2848847: {
-    id: 'mw_2848847',
-    codeName: 'PROJECT: PARK-MONUMENT',
-    category: 'Architectural Figurine Statue, Monolithic Solid',
-    title: '邦布樂園・邦布雕像 2 號',
-    author: 'MakerWorld 原創',
-    platform: 'MakerWorld #2848847',
-    sourceUrl: 'https://makerworld.com/zh/models/2848847',
-    embedUrl: 'https://makerworld.com/zh/models/2848847',
-    photoUrl: './images/mw_2848847_park_statue.jpg',
-    photoDesc: 'MakerWorld #2848847 · 邦布樂園實體紀念石雕打印成品 (免支撐一體)',
-    glbUrl: './models/bagboo_fanmade.glb',
-    baseHeight: 80,
-    baseWeight: 31,
-    baseTime: 130,
-    dimensions: '60 × 60 × 80 mm',
-    printSpec: '0.16mm Layer · 單色一體 (31g) / AMS多色 (81g)',
-    colorDesc: '新艾利都邦布主題樂園實體紀念石雕，底座平穩免支撐，極致好印。',
-    swatches: [
-      { bg: '#94a3b8', title: '水泥石雕灰 #94a3b8' },
-      { bg: '#475569', title: '大理石深階 #475569' },
-      { bg: '#b45309', title: '青銅紀念銘牌 #b45309' },
-      { bg: '#cbd5e1', title: '石雕高光 #cbd5e1' },
-      { bg: '#334155', title: '園區基座 #334155' }
-    ],
-    colorTable: [
-      { bg: '#94a3b8', name: '雕像主體 / 招手手臂 / 圓弧雙耳', code: 'HEX: #94A3B8 · 水泥仿石灰 PLA' },
-      { bg: '#475569', name: '雙層大理石紀念方柱底座', code: 'HEX: #475569 · 深灰玄武岩' },
-      { bg: '#b45309', name: '樂園編號銘牌 (Bonbon Park #2)', code: 'HEX: #B45309 · 仿古青銅黃銅' },
-      { bg: '#cbd5e1', name: '風化立體刻線與高光面', code: 'HEX: #CBD5E1 · 淺石灰' },
-      { bg: '#334155', name: '底盤防滑配重槽', code: 'HEX: #334155 · 工業深灰' }
-    ],
-    stlUrl: './models/mw_2848847.stl',
-    downloads: [
-      { type: 'STL', file: './models/mw_2848847.stl', name: 'mw_2848847.stl', class: 'dl-stl', desc: '11.9 MB · 原作者 100% 正版雕像 STL (網頁安全小於25MB) · 249,766 面高精細網格' },
-      { type: 'GLB', file: './models/bagboo_fanmade.glb', name: 'bagboo_fanmade.glb', class: 'dl-glb', desc: '168 KB · 雲端實時 3D 渲染模型' }
-    ]
-  },
-
-  // 模型 5：邦布 CLICKER 按鍵神器 - MakerWorld #1027664
-  mw_1027664: {
-    id: 'mw_1027664',
-    codeName: 'PROJECT: CLICKER-EDC',
-    category: 'Mechanical Tactile Fidget Toy, Print-in-Place',
-    title: '邦布 CLICKER 按鍵神器',
-    author: 'YEZAO',
-    platform: 'MakerWorld #1027664',
-    sourceUrl: 'https://makerworld.com/zh/models/1027664',
-    embedUrl: 'https://makerworld.com/zh/models/1027664',
-    photoUrl: './images/mw_1027664_fidget_clicker.webp',
-    photoDesc: 'MakerWorld #1027664 · 隨身 EDC 咔嗒解壓神器實體組裝成品',
-    glbUrl: './models/mw_1027664_fidget_clicker.glb',
-    baseHeight: 65,
-    baseWeight: 51,
-    baseTime: 120,
-    dimensions: '45 × 32 × 65 mm (隨身 EDC 款)',
-    printSpec: '0.16mm Layer · 無 AMS 分色組裝 (51g) · 免支撐',
-    colorDesc: '指尖 EDC 咔嗒減壓神器！雙微動按鈕與倒角防滑，聲音清脆回彈。',
-    swatches: [
-      { bg: '#1e293b', title: '曜石黑外殼 #1e293b' },
-      { bg: '#ea580c', title: '雙按鍵亮橙 #ea580c' },
-      { bg: '#f8fafc', title: '邦布裝飾耳 #f8fafc' },
-      { bg: '#38bdf8', title: '指示冰藍 #38bdf8' },
-      { bg: '#64748b', title: '掛繩孔扣 #64748b' }
-    ],
-    colorTable: [
-      { bg: '#1e293b', name: 'EDC 外殼方圓盒 (主機身)', code: 'HEX: #1E293B · 消光黑 (PLA/PETG)' },
-      { bg: '#ea580c', name: '雙顆微動按鍵帽 (清脆按壓反饋)', code: 'HEX: #EA580C · 伊埃斯標誌亮橙' },
-      { bg: '#f8fafc', name: '頂部標誌性裝飾雙耳', code: 'HEX: #F8FAFC · 純白' },
-      { bg: '#38bdf8', name: '微動開關彈片卡位槽', code: 'HEX: #38BDF8 · 冰藍金屬' },
-      { bg: '#64748b', name: '底部防摔掛繩環扣', code: 'HEX: #64748B · 槍灰金屬' }
+    stlUrl: './models/依埃思 - 全身 - 可換臉.stl',
+    glbUrl: './models/依埃思 - 全身 - 可換臉.glb',
+    candidates: [
+      './models/依埃思 - 全身 - 可換臉.glb',
+      './models/依埃思 - 全身 - 可換臉.stl',
+      './models/%E4%BE%9D%E5%9F%83%E6%80%9D%20-%20%E5%85%A8%E8%BA%AB%20-%20%E5%8F%AF%E6%8F%9B%E8%87%89.stl',
+      './models/mw_551834.stl',
+      './models/mw_551834.glb',
+      './models/eous_faces.stl'
     ],
     downloads: [
-      { type: 'STL', file: './models/mw_1027664_fidget_clicker_3dprint.stl', name: 'mw_1027664_fidget_clicker_3dprint.stl', class: 'dl-stl', desc: '83 KB · 3D 列印 EDC 結構件 STL · 零支撐一體列印' },
-      { type: 'GLB', file: './models/mw_1027664_fidget_clicker.glb', name: 'mw_1027664_fidget_clicker.glb', class: 'dl-glb', desc: '112 KB · 全彩 PBR EDC 模型' }
-    ]
-  },
-
-  // 模型 6：發財布 2025 暴富按鍵 - MakerWorld #1141374
-  mw_1141374: {
-    id: 'mw_1141374',
-    codeName: 'PROJECT: PROSPERITY-2025',
-    category: 'Festive Spring Fortune EDC, Dual Click Mechanism',
-    title: '發財布 (2025 暴富按鍵 EDC)',
-    author: 'YEZAO',
-    platform: 'MakerWorld #1141374',
-    sourceUrl: 'https://makerworld.com/zh/models/1141374',
-    embedUrl: 'https://makerworld.com/zh/models/1141374',
-    photoUrl: './images/mw_1141374_prosperity_riches.webp',
-    photoDesc: 'MakerWorld #1141374 · 2025 新春暴富開運按鍵實物打印效果',
-    glbUrl: './models/mw_1141374_prosperity_riches.glb',
-    baseHeight: 65,
-    baseWeight: 39,
-    baseTime: 110,
-    dimensions: '45 × 32 × 65 mm (招財隨身款)',
-    printSpec: '0.16mm Layer · 新春絲綢紅金 · 僅約 39g 耗材',
-    colorDesc: '新年限定款：大紅喜慶主殼搭配「發財」金幣雙按鍵與頂部金元寶！',
-    swatches: [
-      { bg: '#dc2626', title: '新春開運紅 #dc2626' },
-      { bg: '#eab308', title: '元寶暴富金 #eab308' },
-      { bg: '#18181b', title: '炭黑銘文刻字 #18181b' },
-      { bg: '#fef08a', title: '亮金元寶 #fef08a' },
-      { bg: '#7f1d1d', title: '深紅邊框 #7f1d1d' }
-    ],
-    colorTable: [
-      { bg: '#dc2626', name: '新春喜慶主外殼 / 紅色裝飾短耳', code: 'HEX: #DC2626 · 中國紅 (Silk Red)' },
-      { bg: '#eab308', name: '雙顆金幣按鍵帽 (清脆暴富反饋)', code: 'HEX: #EAB308 · 絲綢金 (Gold Silk)' },
-      { bg: '#18181b', name: '立體「發」「財」刻字牌印', code: 'HEX: #18181B · 炭黑馬克漆' },
-      { bg: '#fef08a', name: '頂部招財立體金元寶', code: 'HEX: #FEF08A · 璨金高光' },
-      { bg: '#7f1d1d', name: '底部防丟如意紅繩吊扣', code: 'HEX: #7F1D1D · 絳紅金屬' }
-    ],
-    downloads: [
-      { type: 'STL', file: './models/mw_1141374_prosperity_riches_3dprint.stl', name: 'mw_1141374_prosperity_riches_3dprint.stl', class: 'dl-stl', desc: '113 KB · 2025 新春開運發財布 STL · 免支撐卡榫' },
-      { type: 'GLB', file: './models/mw_1141374_prosperity_riches.glb', name: 'mw_1141374_prosperity_riches.glb', class: 'dl-glb', desc: '158 KB · 全彩 PBR 招財模型' }
+      { type: 'STL', file: './models/依埃思 - 全身 - 可換臉.stl', name: '依埃思 - 全身 - 可換臉.stl', class: 'dl-stl', desc: '5.35 MB · 原作者 100% 正版全身可換臉 STL · 106,995 面精緻閉合網格' },
+      { type: 'GLB', file: './models/依埃思 - 全身 - 可換臉.glb', name: '依埃思 - 全身 - 可換臉.glb', class: 'dl-glb', desc: '2.45 MB · 100% 正版完整網格快速渲染模型' }
     ]
   }
 };
 
-let currentActiveModelKey = 'mw_551834';
+let currentActiveModelKey = 'mw_2848847';
 let currentViewMode = 'webgl'; // 'webgl' or 'embed'
 
 let scene, camera, renderer, controls;
@@ -333,67 +270,38 @@ async function loadModelByKey(modelKey) {
   if (mwTitle) mwTitle.textContent = `${modelData.title} · 官方原版檔案`;
   if (mwSub) mwSub.textContent = `原作者：${modelData.author} · 建議耗材：${modelData.printSpec}`;
 
-  // ========================================================================
-  // Tier 1: 記憶體內建 Base64 STL (零網路延遲，直接雙擊或本機預覽 100% 成功)
-  // ========================================================================
-  const b64Key = 'MODEL_STL_' + modelKey.toUpperCase();
-  if (window[b64Key]) {
-    try {
-      const buffer = base64ToArrayBuffer(window[b64Key]);
-      renderStlBuffer(buffer, modelData.title, thisLoadVersion);
-      return;
-    } catch (e) {
-      console.warn('Base64 parse fallback', e);
-    }
-  }
+  // 遍歷當前所選模型的所有候選路徑 (GLB 優先因為體積小加載極速，接著嘗試原版 STL)
+  const candidatePaths = modelData.candidates || [modelData.glbUrl, modelData.stlUrl];
 
-  // ========================================================================
-  // Tier 2: 依序 Fetch 多個候選 STL 檔案路徑 (英數安全路徑、根目錄、中文路徑)
-  // ========================================================================
-  const candidateStlPaths = [
-    modelData.stlUrl,
-    `./models/${modelKey}.stl`,
-    `./${modelKey}.stl`,
-    './models/bangboo_eous_3dprint.stl',
-    './models/bangboo_eous.stl',
-    modelData.id === 'mw_551834' ? './models/依埃思 - 全身 - 可換臉.stl' : null,
-    modelData.id === 'mw_2848847' ? './models/obj_1_邦布乐园雕像2.stl' : null
-  ].filter(Boolean);
-
-  for (const stlPath of candidateStlPaths) {
+  for (const candidatePath of candidatePaths) {
     if (thisLoadVersion !== activeModelLoadVersion) return;
     try {
-      const res = await fetch(encodeURI(stlPath));
-      if (res.ok) {
-        const buffer = await res.arrayBuffer();
-        if (thisLoadVersion === activeModelLoadVersion) {
-          renderStlBuffer(buffer, modelData.title, thisLoadVersion);
-          return;
-        }
+      const res = await fetch(encodeURI(candidatePath));
+      if (!res.ok) continue;
+
+      const buffer = await res.arrayBuffer();
+      if (thisLoadVersion !== activeModelLoadVersion) return;
+
+      const lower = candidatePath.toLowerCase();
+      if (lower.endsWith('.glb') || lower.endsWith('.gltf')) {
+        renderGlbBuffer(buffer, modelData.title, thisLoadVersion);
+        return;
+      } else if (lower.endsWith('.stl')) {
+        renderStlBuffer(buffer, modelData.title, thisLoadVersion);
+        return;
       }
     } catch (e) {
-      // 靜默嘗試下一路徑
+      console.warn('嘗試載入候選檔案失敗，嘗試下一路徑：', candidatePath, e);
     }
   }
 
   if (thisLoadVersion !== activeModelLoadVersion) return;
 
-  // ========================================================================
-  // Tier 3: 【雲端 100% 3D 開啟保險】：若 STL 尚未上傳或 404，自動載入 GitHub 遠端已存在的 GLB 模型
-  // 徹底杜絕網頁進入時掉入平面照片卡，保證雲端訪客進入時 100% 開啟可旋轉 3D 舞台！
-  // ========================================================================
-  const fallbackGlb = modelData.glbUrl || './models/bangboo_eous.glb';
-  renderGlbUrl(fallbackGlb, modelData.title, thisLoadVersion);
-}
-
-function base64ToArrayBuffer(base64) {
-  const binaryString = window.atob(base64);
-  const len = binaryString.length;
-  const bytes = new Uint8Array(len);
-  for (let i = 0; i < len; i++) {
-    bytes[i] = binaryString.charCodeAt(i);
-  }
-  return bytes.buffer;
+  // 若兩者皆尚未上傳或 404，優雅降級顯示官方原圖卡，並提示使用者上傳或拖入檔案
+  if (threeContainer) threeContainer.style.display = 'none';
+  if (mwContainer) mwContainer.style.display = 'block';
+  if (loadingOverlay) loadingOverlay.classList.add('fade-out');
+  showToast(`💡 尚未偵測到 3D 檔案，請將 models/ 資料夾上傳至 GitHub，或拖曳 STL 檔案至右側區域預覽`);
 }
 
 function renderStlBuffer(buffer, modelTitle, thisLoadVersion) {
@@ -411,10 +319,9 @@ function renderStlBuffer(buffer, modelTitle, thisLoadVersion) {
   const geometry = loader.parse(buffer);
   geometry.computeVertexNormals();
   geometry.center();
-  // 3D 列印 CAD Z-Up 轉 Three.js Y-Up；保持光源不變，正面面向鏡頭
+  // 3D 列印 CAD Z-Up 轉 Three.js Y-Up
   geometry.rotateX(-Math.PI / 2);
 
-  // 調淡一倍高對比石墨灰 (#5a636f)，輪廓光影分明，既深邃立體又不死黑
   const material = new THREE.MeshStandardMaterial({
     color: 0x5a636f,
     roughness: 0.38,
@@ -436,7 +343,7 @@ function renderStlBuffer(buffer, modelTitle, thisLoadVersion) {
   showToast(`✨ 3D 舞台已載入正版 STL 拓撲模型：${modelTitle}`);
 }
 
-function renderGlbUrl(glbUrl, modelTitle, thisLoadVersion) {
+function renderGlbBuffer(buffer, modelTitle, thisLoadVersion) {
   if (thisLoadVersion !== activeModelLoadVersion) return;
   const threeContainer = document.getElementById('threeContainer');
   const skfbContainer = document.getElementById('sketchfabContainer');
@@ -448,8 +355,9 @@ function renderGlbUrl(glbUrl, modelTitle, thisLoadVersion) {
   if (mwContainer) mwContainer.style.display = 'none';
 
   const loader = new THREE.GLTFLoader();
-  loader.load(
-    glbUrl,
+  loader.parse(
+    buffer,
+    '',
     (gltf) => {
       if (thisLoadVersion !== activeModelLoadVersion) return;
       clearStageModel();
@@ -458,28 +366,23 @@ function renderGlbUrl(glbUrl, modelTitle, thisLoadVersion) {
         if (c.isMesh) {
           c.castShadow = true;
           c.receiveShadow = true;
-          originalMaterials.set(c.uuid, c.material.clone());
+          const mat = new THREE.MeshStandardMaterial({
+            color: 0x5a636f,
+            roughness: 0.38,
+            metalness: 0.10
+          });
+          c.material = mat;
+          originalMaterials.set(c.uuid, mat.clone());
         }
       });
       normalizeModelTransform(modelRoot);
       stageModelsGroup.add(modelRoot);
       applyShadingState();
       if (loadingOverlay) loadingOverlay.classList.add('fade-out');
-      showToast(`✨ 3D 舞台已載入雲端正版模型：${modelTitle}`);
+      showToast(`✨ 3D 舞台已載入正版 3D 模型：${modelTitle}`);
     },
-    undefined,
     (err) => {
-      if (thisLoadVersion !== activeModelLoadVersion) return;
-      // 容錯防護：若當前 GLB 失敗且非 bangboo_eous.glb，自動嘗試通用的 bangboo_eous.glb
-      if (glbUrl !== './models/bangboo_eous.glb') {
-        renderGlbUrl('./models/bangboo_eous.glb', modelTitle, thisLoadVersion);
-        return;
-      }
-      // 萬一所有 3D 檔案皆不可讀取，才降級至 MakerWorld 官方展台
-      if (threeContainer) threeContainer.style.display = 'none';
-      if (mwContainer) mwContainer.style.display = 'block';
-      if (loadingOverlay) loadingOverlay.classList.add('fade-out');
-      showToast(`💡 請至 MakerWorld 下載正版原檔 (.stl / .3mf)，拖入此處即可 3D 旋轉檢視`);
+      console.error('GLB parse error:', err);
     }
   );
 }
@@ -1039,6 +942,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setupSlicingCalculator();
   setupModelUploadHandlers();
 
-  // 初始載入預設模型 (模型 1：伊埃斯 6款可換臉版)
-  switchActiveModel('mw_551834');
+  // 初始載入預設模型 (模型 1：邦布樂園雕像 2 號 - 附圖二原版實體)
+  switchActiveModel('mw_2848847');
 });
